@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PJOK Bola Tangan - Media Pembelajaran Interaktif</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        handball: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Fredoka', 'sans-serif'],
+                        body: ['Nunito', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #F8FAFC;
+        }
+        h1, h2, h3, .font-heading {
+            font-family: 'Fredoka', sans-serif;
+        }
+        .pulse-gentle {
+            animation: pulseGentle 2s ease-in-out infinite;
+        }
+        @keyframes pulseGentle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+        }
+        .spin-slow {
+            animation: spin 14s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="text-slate-800 flex flex-col min-h-screen">
+
+    <!-- NAVIGATION HEADER -->
+    <header class="sticky top-0 z-50 bg-handball-700 text-white shadow-lg border-b-4 border-blue-300">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#hero" class="flex items-center gap-3 group">
+                <div class="bg-white text-handball-700 p-2 rounded-2xl font-bold text-xl w-10 h-10 flex items-center justify-center shadow-md transform group-hover:rotate-12 transition">
+                    <i class="fa-solid fa-hand-holding-dots text-handball-600"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold tracking-wide leading-tight font-heading">PJOK BOLA TANGAN</h1>
+                    <p class="text-xs text-blue-100 font-semibold hidden sm:block">Oleh: Muhammad Fikri (NPM: 41182191240051)</p>
+                </div>
+            </a>
+            
+            <nav class="hidden md:flex items-center gap-2 font-heading font-medium">
+                <a href="#pengenalan" class="px-3 py-1.5 rounded-xl hover:bg-handball-600 transition">Pengenalan</a>
+                <a href="#ai-simulator" class="px-3 py-1.5 rounded-xl hover:bg-handball-600 transition text-yellow-300 font-bold"><i class="fa-solid fa-wand-magic-sparkles"></i> Simulasi Visual</a>
+                <a href="#teknik" class="px-3 py-1.5 rounded-xl hover:bg-handball-600 transition">Teknik Dasar</a>
+                <a href="#kuis" class="px-3 py-1.5 bg-yellow-400 text-slate-900 font-bold rounded-xl hover:bg-yellow-300 transition shadow">Kuis Interaktif</a>
+                <a href="#pembuat" class="px-3 py-1.5 rounded-xl hover:bg-handball-600 transition">Profil Pembuat</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" class="md:hidden text-white text-2xl focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-handball-800 px-4 pt-2 pb-4 space-y-2 font-heading border-t border-handball-600">
+            <a href="#pengenalan" class="block py-2 px-3 hover:bg-handball-700 rounded-xl text-white">Pengenalan</a>
+            <a href="#ai-simulator" class="block py-2 px-3 hover:bg-handball-700 rounded-xl text-yellow-300 font-bold">Simulasi Visual AI</a>
+            <a href="#teknik" class="block py-2 px-3 hover:bg-handball-700 rounded-xl text-white">Teknik Dasar</a>
+            <a href="#kuis" class="block py-2 px-3 bg-yellow-400 text-slate-900 font-bold rounded-xl">Kuis Interaktif</a>
+            <a href="#pembuat" class="block py-2 px-3 hover:bg-handball-700 rounded-xl text-white">Profil Pembuat</a>
+        </div>
+    </header>
+
+    <!-- HERO BANNER -->
+    <section id="hero" class="bg-gradient-to-b from-handball-700 via-handball-600 to-handball-800 text-white py-12 md:py-16 px-4 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
+            <div class="text-center md:text-left md:w-1/2 space-y-4">
+                <span class="bg-white/20 backdrop-blur-md text-white border border-white/30 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider inline-block shadow-sm">
+                    🤾 Media Pembelajaran PJOK Interaktif
+                </span>
+                <h2 class="text-3xl md:text-5xl font-extrabold leading-tight">Belajar Teknik Dasar <span class="text-yellow-300">Bola Tangan!</span></h2>
+                <p class="text-blue-100 text-base md:text-lg font-medium leading-relaxed">
+                    Pelajari cara melempar, menangkap, menggiring, dan menembak bola tangan dengan mudah melalui simulasi visual 2D dan audio pembaca materi.
+                </p>
+                <div class="flex flex-wrap justify-center md:justify-start gap-3 pt-2">
+                    <a href="#ai-simulator" class="bg-yellow-400 text-slate-900 px-6 py-3 rounded-2xl font-bold text-base hover:bg-yellow-300 transform hover:-translate-y-1 transition shadow-lg flex items-center gap-2">
+                        <i class="fa-solid fa-play"></i> Mulai Simulasi
+                    </a>
+                    <a href="#kuis" class="bg-white/10 hover:bg-white/20 border-2 border-white/40 text-white px-6 py-3 rounded-2xl font-bold text-base transform hover:-translate-y-1 transition shadow-md flex items-center gap-2">
+                        <i class="fa-solid fa-gamepad"></i> Uji Kuis
+                    </a>
+                </div>
+                <div class="pt-4 border-t border-blue-400/40 text-xs text-blue-200">
+                    <p>Dikembangkan oleh: <span class="text-yellow-300 font-bold">Muhammad Fikri</span> | NPM: <span class="text-yellow-300 font-bold">41182191240051</span></p>
+                </div>
+            </div>
+            
+            <!-- Graphic Hero Ball Interactive -->
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative w-64 h-64 md:w-80 md:h-80 bg-white/10 rounded-full flex items-center justify-center p-6 backdrop-blur-md border-4 border-white/30 shadow-2xl group cursor-pointer" onclick="spinHandball()">
+                    <svg id="hero-handball-svg" viewBox="0 0 200 200" class="w-full h-full pulse-gentle transition-transform duration-700">
+                        <circle cx="100" cy="100" r="85" fill="#3B82F6" stroke="#FFFFFF" stroke-width="6"/>
+                        <!-- Handball Surface Patterns -->
+                        <path d="M 35 40 Q 100 90 165 40" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-dasharray="4 4"/>
+                        <path d="M 35 160 Q 100 110 165 160" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-dasharray="4 4"/>
+                        <path d="M 20 100 Q 100 100 180 100" fill="none" stroke="#FBBF24" stroke-width="5"/>
+                        <circle cx="100" cy="100" r="28" fill="#1E3A8A" stroke="#FBBF24" stroke-width="4"/>
+                        <!-- Hand Icon -->
+                        <g transform="translate(84, 84) scale(0.7)">
+                            <path d="M 10 25 C 10 10 20 10 20 25 L 20 50 C 20 55 25 55 25 50 L 25 15 C 25 5 35 5 35 15 L 35 50 C 35 55 40 55 40 50 L 40 20 C 40 10 50 10 50 20 L 50 50 C 50 55 55 55 55 50 L 55 30 C 55 20 65 20 65 30 L 65 65 C 65 85 45 95 30 95 C 15 95 10 80 10 65 Z" fill="#FFFFFF"/>
+                        </g>
+                    </svg>
+                    <div class="absolute bottom-3 bg-yellow-400 text-slate-900 text-xs font-bold px-3 py-1 rounded-full shadow border border-yellow-500">
+                        Putar Bola Tangan 🤾
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-5xl mx-auto px-4 py-10 space-y-14 flex-grow">
+
+        <!-- 1. PENGENALAN BOLA TANGAN -->
+        <section id="pengenalan" class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-2 border-slate-100">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-3">
+                    <div class="bg-handball-100 text-handball-700 p-3 rounded-2xl text-2xl font-bold">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-800">Apa Itu Permainan Bola Tangan?</h2>
+                        <p class="text-sm text-slate-500">Mengenal dasar permainan olahraga bola tangan (Handball)</p>
+                    </div>
+                </div>
+                <button onclick="speakText('Bola tangan adalah permainan beregu menggunakan tangan untuk memantulkan, melempar, menangkap, dan menembakkan bola ke dalam gawang lawan. Dimainkan oleh 7 orang pemain di setiap tim.')" class="bg-blue-50 hover:bg-blue-100 text-handball-700 font-bold px-3 py-2 rounded-xl text-xs flex items-center gap-1.5 transition">
+                    <i class="fa-solid fa-volume-high"></i> Dengarkan Suara
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6">
+                <div class="bg-blue-50/70 rounded-2xl p-5 border border-blue-100">
+                    <div class="text-handball-600 text-3xl mb-2"><i class="fa-solid fa-users font-bold"></i></div>
+                    <h3 class="font-heading text-lg font-bold text-slate-800 mb-1">Jumlah Pemain</h3>
+                    <p class="text-sm text-slate-600">Dimainkan oleh 2 tim. Masing-masing tim terdiri dari 7 pemain (6 pemain lapangan + 1 kiper).</p>
+                </div>
+                <div class="bg-blue-50/70 rounded-2xl p-5 border border-blue-100">
+                    <div class="text-handball-600 text-3xl mb-2"><i class="fa-solid fa-bullseye font-bold"></i></div>
+                    <h3 class="font-heading text-lg font-bold text-slate-800 mb-1">Tujuan Utama</h3>
+                    <p class="text-sm text-slate-600">Mencetak gol sebanyak-banyaknya dengan melempar bola ke gawang lawan menggunakan tangan.</p>
+                </div>
+                <div class="bg-blue-50/70 rounded-2xl p-5 border border-blue-100">
+                    <div class="text-handball-600 text-3xl mb-2"><i class="fa-solid fa-stopwatch font-bold"></i></div>
+                    <h3 class="font-heading text-lg font-bold text-slate-800 mb-1">Aturan 3 Detik & 3 Langkah</h3>
+                    <p class="text-sm text-slate-600">Pemain hanya boleh memegang bola paling lama 3 detik dan melangkah maksimal 3 langkah tanpa memantulkan bola.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. SIMULATOR VISUAL AI GERAK BOLA TANGAN -->
+        <section id="ai-simulator" class="bg-white rounded-3xl p-6 md:p-8 shadow-lg border-4 border-handball-500 relative">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <div>
+                    <span class="bg-handball-100 text-handball-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1">
+                        <i class="fa-solid fa-wand-magic-sparkles text-handball-600"></i> Simulator Visual Canvas
+                    </span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-800 mt-1">Animasi Gerak Teknik Bola Tangan</h2>
+                    <p class="text-slate-600 text-sm">Pilih teknik di bawah untuk melihat animasi pergerakan bola dan pemain secara live.</p>
+                </div>
+
+                <!-- Tabs Motion Selection -->
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="setHandballMotion('passing')" id="btn-motion-passing" class="motion-tab-btn bg-handball-600 text-white font-bold px-3 py-2 rounded-xl text-xs flex items-center gap-1 shadow">
+                        🤾 Melempar (Pass)
+                    </button>
+                    <button onclick="setHandballMotion('catching')" id="btn-motion-catching" class="motion-tab-btn bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3 py-2 rounded-xl text-xs flex items-center gap-1">
+                        🤲 Menangkap
+                    </button>
+                    <button onclick="setHandballMotion('dribble')" id="btn-motion-dribble" class="motion-tab-btn bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3 py-2 rounded-xl text-xs flex items-center gap-1">
+                        ⛹️ Menggiring
+                    </button>
+                    <button onclick="setHandballMotion('shooting')" id="btn-motion-shooting" class="motion-tab-btn bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3 py-2 rounded-xl text-xs flex items-center gap-1">
+                        💥 Menembak (Shoot)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Canvas Viewport -->
+            <div class="relative bg-gradient-to-b from-blue-900 via-handball-800 to-blue-950 rounded-2xl overflow-hidden border-4 border-slate-800 shadow-inner h-72 md:h-80 flex items-center justify-center">
+                <canvas id="handballCanvas" class="w-full h-full"></canvas>
+
+                <!-- Floating Player Info bar -->
+                <div class="absolute bottom-4 left-4 right-4 flex justify-between items-center bg-slate-900/85 backdrop-blur-md px-4 py-2.5 rounded-xl text-white text-xs border border-white/10">
+                    <div class="flex items-center gap-2">
+                        <button onclick="toggleHandballAnim()" id="anim-play-btn" class="bg-yellow-400 text-slate-900 font-bold px-3 py-1.5 rounded-lg hover:bg-yellow-300 flex items-center gap-1">
+                            <i class="fa-solid fa-pause"></i> Pause
+                        </button>
+                        <span id="motion-title" class="font-bold text-yellow-300 text-sm">Teknik Melempar (Passing)</span>
+                    </div>
+                    <span id="motion-desc" class="hidden sm:inline text-slate-200">Operan dada (Chest pass) mengarahkan bola lurus cepat ke rekan setim.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. MATERI TEKNIK DASAR -->
+        <section id="teknik" class="space-y-6">
+            <div class="text-center max-w-2xl mx-auto">
+                <span class="bg-blue-100 text-handball-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Modul Pembelajaran Utama</span>
+                <h2 class="text-3xl font-extrabold text-slate-800 mt-2">4 Teknik Dasar Utama Bola Tangan</h2>
+                <p class="text-slate-600 text-sm mt-1">Tekan tombol suara di setiap modul untuk mendengarkan instruksi guru!</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- 1. CATCHING -->
+                <div class="bg-white rounded-3xl p-6 shadow-md hover:shadow-lg border-2 border-blue-100 flex flex-col justify-between transition">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-handball-600 text-white font-bold px-3 py-1 rounded-xl text-xs">Teknik 1</span>
+                            <button onclick="speakText('Teknik Menangkap Bola atau Catching. Gunakan kedua telapak kaki sedikit dibuka, kedua tangan membentuk mangkuk terbuka di depan dada. Tarik tangan ke belakang saat menyentuh bola.')" class="p-2 bg-blue-50 text-handball-600 hover:bg-blue-100 rounded-lg text-xs font-bold transition">
+                                <i class="fa-solid fa-volume-high"></i> Suara
+                            </button>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-2">1. Menangkap Bola (Catching)</h3>
+                        <p class="text-slate-600 text-sm mb-4">Menerima bola dari umpan teman dengan aman tanpa terlepas.</p>
+
+                        <!-- SVG Illustration Catching -->
+                        <div class="bg-blue-50 rounded-2xl p-4 flex items-center justify-center mb-4">
+                            <svg viewBox="0 0 160 100" class="w-36 h-24">
+                                <!-- Person SVG -->
+                                <circle cx="50" cy="30" r="12" fill="#1E40AF"/>
+                                <path d="M 50 42 L 50 75 M 50 50 L 30 40 M 50 50 L 75 40" stroke="#1E40AF" stroke-width="4" stroke-linecap="round"/>
+                                <path d="M 50 75 L 38 95 M 50 75 L 62 95" stroke="#1E40AF" stroke-width="4" stroke-linecap="round"/>
+                                <!-- Ball -->
+                                <circle cx="85" cy="38" r="10" fill="#FBBF24" stroke="#1E3A8A" stroke-width="2"/>
+                                <!-- Dotted Trajectory -->
+                                <path d="M 130 38 L 97 38" stroke="#3B82F6" stroke-width="3" stroke-dasharray="3 3"/>
+                            </svg>
+                        </div>
+
+                        <ul class="space-y-1.5 text-xs text-slate-700 font-medium">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-handball-600"></i> Tangkap bola dengan kedua telapak tangan membentuk wujud mangkuk (seperti corong).</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-handball-600"></i> Pandangan mata selalu fokus mengawasi arah datangnya bola.</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-handball-600"></i> Tarik siku ke belakang saat menangkap untuk meredam benturan bola.</li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('catching')" class="mt-5 w-full bg-blue-50 hover:bg-handball-600 hover:text-white text-handball-700 font-bold py-2.5 rounded-xl transition text-xs flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-list-check"></i> Detail Langkah-Langkah
+                    </button>
+                </div>
+
+                <!-- 2. PASSING -->
+                <div class="bg-white rounded-3xl p-6 shadow-md hover:shadow-lg border-2 border-blue-100 flex flex-col justify-between transition">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-handball-600 text-white font-bold px-3 py-1 rounded-xl text-xs">Teknik 2</span>
+                            <button onclick="speakText('Teknik Melempar Bola atau Passing. Terdiri dari Chest Pass operan dada, Overhead Pass operan atas kepala, dan Bounce Pass operan memantul.')" class="p-2 bg-blue-50 text-handball-600 hover:bg-blue-100 rounded-lg text-xs font-bold transition">
+                                <i class="fa-solid fa-volume-high"></i> Suara
+                            </button>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-2">2. Melempar Bola (Passing)</h3>
+                        <p class="text-slate-600 text-sm mb-4">Mengumpankan bola kepada rekan satu tim dengan cepat dan tepat.</p>
+
+                        <!-- SVG Illustration Passing -->
+                        <div class="bg-blue-50 rounded-2xl p-4 flex items-center justify-center mb-4">
+                            <svg viewBox="0 0 160 100" class="w-36 h-24">
+                                <circle cx="35" cy="30" r="12" fill="#1E40AF"/>
+                                <path d="M 35 42 L 35 75 M 35 48 L 60 48" stroke="#1E40AF" stroke-width="4" stroke-linecap="round"/>
+                                <path d="M 35 75 L 25 95 M 35 75 L 45 95" stroke="#1E40AF" stroke-width="4" stroke-linecap="round"/>
+                                
+                                <path d="M 65 48 L 115 48" stroke="#F97316" stroke-width="3" stroke-dasharray="4 4"/>
+                                <circle cx="72" cy="48" r="8" fill="#FBBF24" stroke="#1E3A8A" stroke-width="2"/>
+
+                                <circle cx="125" cy="30" r="12" fill="#2563EB"/>
+                                <path d="M 125 42 L 125 75 M 125 50 L 105 48" stroke="#2563EB" stroke-width="4" stroke-linecap="round"/>
+                                <path d="M 125 75 L 115 95 M 125 75 L 135 95" stroke="#2563EB" stroke-width="4" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+
+                        <ul class="space-y-1.5 text-xs text-slate-700 font-medium">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-handball-600"></i> <strong>Chest Pass:</strong> Melempar lurus dari depan dada.</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-handball-600"></i> <strong>Overhead Pass:</strong> Melempar melambung dari atas kepala.</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-handball-600"></i> <strong>Bounce Pass:</strong> Memantulkan bola ke lantai.</li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('passing')" class="mt-5 w-full bg-blue-50 hover:bg-handball-600 hover:text-white text-handball-700 font-bold py-2.5 rounded-xl transition text-xs flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-list-check"></i> Detail Langkah-Langkah
+                    </button>
+                </div>
+
+                <!-- 3. DRIBBLING -->
+                <div class="bg-white rounded-3xl p-6 shadow-md hover:shadow-lg border-2 border-blue-100 flex flex-col justify-between transition">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-handball-600 text-white font-bold px-3 py-1 rounded-xl text-xs">Teknik 3</span>
+                            <button onclick="speakText('Teknik Menggiring Bola atau Dribbling. Memantul-mantulkan bola ke lantai menggunakan satu tangan sambil berjalan atau berlari menuju daerah lawan.')" class="p-2 bg-blue-50 text-handball-600 hover:bg-blue-100 rounded-lg text-xs font-bold transition">
+                                <i class="fa-solid fa-volume-high"></i> Suara
+                            </button>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-2">3. Menggiring Bola (Dribbling)</h3>
+                        <p class="text-slate-600 text-sm mb-4">Memantulkan bola ke lantai dengan satu tangan sambil bergerak maju.</p>
+
+                        <!-- SVG Illustration Dribble -->
+                        <div class="bg-blue-50 rounded-2xl p-4 flex items-center justify-center mb-4">
+                            <svg viewBox="0 0 160 100" class="w-36 h-24">
+                                <circle cx="60" cy="28" r="12" fill="#1E40AF"/>
+                                <path d="M 60 40 L 60 72 M 60 48 L 85 55" stroke="#1E40AF" stroke-width="4" stroke-linecap="round"/>
+                                <path d="M 60 72 L 45 95 M 60 72 L 75 95" stroke="#1E40AF" stroke-width="4" stroke-linecap="round"/>
+                                
+                                <path d="M 85 58 L 95 88 L 105 65" stroke="#3B82F6" stroke-width="3" stroke-dasharray="3 3"/>
+                                <circle cx="95" cy="88" r="8" fill="#FBBF24" stroke="#1E3A8A" stroke-width="2"/>
+                                <!-- Floor line -->
+                                <line x1="10" y1="95" x2="150" y2="95" stroke="#94A3B8" stroke-width="3"/>
+                            </svg>
+                        </div>
+
+                        <ul class="space-y-1.5 text-xs text-slate-700 font-medium">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-handball-600"></i> Gunakan jari-jari tangan terbuka untuk mendorong bola ke bawah.</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-handball-600"></i> Pantulkan bola sebatas pinggang agar gampang dikontrol.</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-handball-600"></i> Jangan memukul bola, tetapi dorong bola secara lembut.</li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('dribbling')" class="mt-5 w-full bg-blue-50 hover:bg-handball-600 hover:text-white text-handball-700 font-bold py-2.5 rounded-xl transition text-xs flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-list-check"></i> Detail Langkah-Langkah
+                    </button>
+                </div>
+
+                <!-- 4. SHOOTING -->
+                <div class="bg-white rounded-3xl p-6 shadow-md hover:shadow-lg border-2 border-blue-100 flex flex-col justify-between transition">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-handball-600 text-white font-bold px-3 py-1 rounded-xl text-xs">Teknik 4</span>
+                            <button onclick="speakText('Teknik Menembak Bola atau Shooting. Lemparan keras ke arah gawang lawan untuk mencetak gol. Dapat dilakukan dengan Standing Shot atau Jump Shot sambil melompat.')" class="p-2 bg-blue-50 text-handball-600 hover:bg-blue-100 rounded-lg text-xs font-bold transition">
+                                <i class="fa-solid fa-volume-high"></i> Suara
+                            </button>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-2">4. Menembak Bola (Shooting)</h3>
+                        <p class="text-slate-600 text-sm mb-4">Melempar bola sekuat tenaga ke arah gawang lawan untuk mencetak angka.</p>
+
+                        <!-- SVG Illustration Shooting -->
+                        <div class="bg-blue-50 rounded-2xl p-4 flex items-center justify-center mb-4">
+                            <svg viewBox="0 0 160 100" class="w-36 h-24">
+                                <!-- Goal Frame -->
+                                <rect x="120" y="25" width="25" height="70" fill="none" stroke="#EF4444" stroke-width="4"/>
+                                <line x1="120" y1="40" x2="145" y2="40" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="2 2"/>
+
+                                <!-- Jumper Player -->
+                                <circle cx="45" cy="22" r="10" fill="#1E40AF"/>
+                                <path d="M 45 32 L 45 60 M 45 38 L 70 20" stroke="#1E40AF" stroke-width="4" stroke-dasharray="0" stroke-linecap="round"/>
+                                <path d="M 45 60 L 30 78 M 45 60 L 60 70" stroke="#1E40AF" stroke-width="4" stroke-linecap="round"/>
+                                
+                                <circle cx="75" cy="18" r="8" fill="#FBBF24" stroke="#1E3A8A" stroke-width="2"/>
+                                <path d="M 82 20 L 125 45" stroke="#EF4444" stroke-width="3" stroke-dasharray="4 4"/>
+                            </svg>
+                        </div>
+
+                        <ul class="space-y-1.5 text-xs text-slate-700 font-medium">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-handball-600"></i> <strong>Standing Shot:</strong> Tembakan berdiri tegak memanfaatkan pilinan pinggang.</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-handball-600"></i> <strong>Jump Shot:</strong> Melompat tinggi ke depan sebelum melepaskan tembakan.</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-handball-600"></i> Arahkan bola ke sudut gawang yang sulit dijangkau kiper.</li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('shooting')" class="mt-5 w-full bg-blue-50 hover:bg-handball-600 hover:text-white text-handball-700 font-bold py-2.5 rounded-xl transition text-xs flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-list-check"></i> Detail Langkah-Langkah
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. KUIS INTERAKTIF -->
+        <section id="kuis" class="bg-gradient-to-br from-blue-900 to-handball-800 text-white rounded-3xl p-6 md:p-8 shadow-xl border-4 border-blue-400 relative overflow-hidden">
+            <div class="text-center max-w-xl mx-auto mb-8">
+                <span class="bg-yellow-400 text-slate-900 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider inline-block">
+                    🏆 Uji Pemahaman Siswa
+                </span>
+                <h2 class="text-3xl font-black text-white mt-2">Kuis Seru Bola Tangan</h2>
+                <p class="text-blue-200 text-sm">Jawab 5 soal di bawah ini dan raih nilai tertinggi!</p>
+            </div>
+
+            <!-- Quiz Main View -->
+            <div id="quiz-container" class="bg-white text-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl max-w-2xl mx-auto">
+                <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100">
+                    <span id="question-number" class="font-heading font-bold text-handball-700 bg-blue-50 px-3 py-1 rounded-xl text-xs">Pertanyaan 1 dari 5</span>
+                    <div class="flex items-center gap-1 text-yellow-500 font-bold text-sm" id="star-display">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                </div>
+
+                <div class="mb-6 flex items-start justify-between gap-3">
+                    <h3 id="question-text" class="text-base md:text-lg font-bold text-slate-800 leading-snug">Memuat Pertanyaan...</h3>
+                    <button onclick="readCurrentQuestion()" class="p-2 bg-blue-50 hover:bg-blue-100 text-handball-700 rounded-lg text-xs font-bold transition flex-shrink-0" title="Bacakan Soal">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </button>
+                </div>
+
+                <div id="options-container" class="grid grid-cols-1 gap-3">
+                    <!-- Options injected via JS -->
+                </div>
+
+                <div id="feedback-box" class="hidden mt-4 p-4 rounded-xl text-center font-bold text-xs md:text-sm"></div>
+
+                <div class="mt-6 flex justify-end">
+                    <button id="next-btn" onclick="nextQuestion()" class="hidden bg-handball-600 hover:bg-handball-700 text-white font-bold px-6 py-2.5 rounded-xl transition text-xs flex items-center gap-2 shadow">
+                        Pertanyaan Selanjutnya <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz Result View -->
+            <div id="result-container" class="hidden bg-white text-slate-800 rounded-2xl p-8 text-center shadow-2xl max-w-lg mx-auto">
+                <div class="w-20 h-20 bg-yellow-100 text-yellow-500 rounded-full flex items-center justify-center mx-auto text-4xl mb-4 shadow-inner">
+                    <i id="result-icon" class="fa-solid fa-trophy"></i>
+                </div>
+                <h3 class="text-2xl font-black text-slate-800 mb-1">Kuis Selesai!</h3>
+                <p class="text-xs text-slate-500 mb-2">Nilai Akhir Kamu:</p>
+                <div class="text-5xl font-black text-handball-600 mb-4" id="final-score">100</div>
+                <p id="result-message" class="text-slate-600 text-sm font-semibold mb-6">Hebat sekali! Kamu memahami materi bola tangan dengan sempurna!</p>
+                <button onclick="resetQuiz()" class="bg-yellow-400 hover:bg-yellow-300 text-slate-900 font-extrabold px-8 py-3 rounded-2xl shadow-lg transition transform hover:-translate-y-1 inline-flex items-center gap-2 text-sm">
+                    <i class="fa-solid fa-rotate-right"></i> Ulangi Kuis
+                </button>
+            </div>
+        </section>
+
+        <!-- 5. PROFIL PEMBUAT -->
+        <section id="pembuat" class="bg-white rounded-3xl p-6 md:p-8 shadow-xl border-4 border-blue-500 relative overflow-hidden">
+            <div class="flex flex-col md:flex-row items-center gap-6 relative z-10">
+                <div class="w-28 h-28 md:w-36 md:h-36 bg-gradient-to-br from-handball-600 to-blue-800 text-white rounded-3xl flex items-center justify-center text-6xl shadow-lg border-4 border-blue-200 flex-shrink-0">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </div>
+                <div class="text-center md:text-left flex-grow">
+                    <span class="bg-blue-100 text-handball-800 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider inline-block mb-2">Pengembang Media Pembelajaran</span>
+                    <h3 class="text-2xl md:text-3xl font-black text-slate-900">Muhammad Fikri</h3>
+                    <p class="text-handball-700 font-bold text-base md:text-lg mt-0.5">NPM: <span class="text-blue-900 tracking-wider">41182191240051</span></p>
+                    <p class="text-slate-600 text-xs md:text-sm font-semibold mt-1">Mata Pelajaran: PJOK (Pendidikan Jasmani, Olahraga, dan Kesehatan)</p>
+                    <p class="text-slate-500 text-xs md:text-sm mt-3 leading-relaxed">
+                        Media pembelajaran interaktif berbasis web ini disusun untuk mempermudah siswa memahami gerak dan teknik dasar permainan bola tangan secara visual, auditory, dan kinestetik melalui animasi simulasi 2D.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-6 border-t-4 border-blue-500 mt-auto">
+        <div class="max-w-5xl mx-auto px-4 text-center text-xs md:text-sm space-y-1">
+            <p class="font-semibold text-slate-200">© 2026 PJOK SD/SMP - Media Pembelajaran Teknik Dasar Bola Tangan</p>
+            <p class="text-slate-400">Dibuat oleh: <span class="text-yellow-400 font-bold">Muhammad Fikri</span> (NPM: <span class="text-yellow-400 font-bold">41182191240051</span>)</p>
+        </div>
+    </footer>
+
+    <!-- MODAL LANGKAH TEKNIK -->
+    <div id="detail-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 relative shadow-2xl border-4 border-handball-500">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-2xl font-bold w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100">
+                &times;
+            </button>
+            <div id="modal-content" class="space-y-4">
+                <!-- Injected via JS -->
+            </div>
+            <button onclick="closeModal()" class="mt-6 w-full bg-handball-600 text-white font-bold py-2.5 rounded-xl hover:bg-handball-700 transition text-xs">
+                Saya Sudah Paham
+            </button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- 1. Mobile Menu ---
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // --- 2. Hero Ball Spin ---
+        function spinHandball() {
+            const svg = document.getElementById('hero-handball-svg');
+            svg.style.transform = 'rotate(360deg) scale(1.1)';
+            setTimeout(() => {
+                svg.style.transform = 'rotate(0deg) scale(1.0)';
+            }, 700);
+        }
+
+        // --- 3. Text to Speech (Audio Reader) ---
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'id-ID';
+                utterance.rate = 0.95;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // --- 4. Web Audio API Synth Sound Effects ---
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function playSoundEffect(isCorrect) {
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            if (isCorrect) {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+                osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
+                osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2); // G5
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+                osc.start(audioCtx.currentTime);
+                osc.stop(audioCtx.currentTime + 0.4);
+            } else {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(140, audioCtx.currentTime + 0.15);
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.35);
+                osc.start(audioCtx.currentTime);
+                osc.stop(audioCtx.currentTime + 0.35);
+            }
+        }
+
+        // --- 5. Handball Canvas Simulator ---
+        const canvas = document.getElementById('handballCanvas');
+        const ctx = canvas.getContext('2d');
+        let currentMotion = 'passing';
+        let isAiPlaying = true;
+        let time = 0;
+
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const motionDetails = {
+            passing: { title: "Teknik Melempar (Passing)", desc: "Operan dada (Chest pass) mengarahkan bola lurus cepat ke rekan setim." },
+            catching: { title: "Teknik Menangkap (Catching)", desc: "Kedua tangan membentuk mangkuk menyambut bola dari depan." },
+            dribble: { title: "Teknik Menggiring (Dribble)", desc: "Memantulkan bola ke lantai secara kontinyu sambil melangkah maju." },
+            shooting: { title: "Teknik Menembak (Shooting)", desc: "Tembakan melompat (Jump shot) keras mengarah langsung ke gawang." }
+        };
+
+        function setHandballMotion(key) {
+            currentMotion = key;
+            time = 0;
+            document.querySelectorAll('.motion-tab-btn').forEach(btn => {
+                btn.className = "motion-tab-btn bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3 py-2 rounded-xl text-xs flex items-center gap-1";
+            });
+            document.getElementById(`btn-motion-${key}`).className = "motion-tab-btn bg-handball-600 text-white font-bold px-3 py-2 rounded-xl text-xs flex items-center gap-1 shadow";
+
+            document.getElementById('motion-title').textContent = motionDetails[key].title;
+            document.getElementById('motion-desc').textContent = motionDetails[key].desc;
+        }
+
+        function toggleHandballAnim() {
+            isAiPlaying = !isAiPlaying;
+            document.getElementById('anim-play-btn').innerHTML = isAiPlaying ? 
+                '<i class="fa-solid fa-pause"></i> Pause' : '<i class="fa-solid fa-play"></i> Putar';
+        }
+
+        function drawBall(x, y, r = 12) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.fillStyle = "#FBBF24";
+            ctx.fill();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "#1E3A8A";
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(x, y, r * 0.4, 0, Math.PI * 2);
+            ctx.fillStyle = "#1E40AF";
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function renderSimulation() {
+            if (isAiPlaying) time += 0.04;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const w = canvas.width;
+            const h = canvas.height;
+            const groundY = h - 35;
+
+            // Draw Court Floor & Lines
+            ctx.fillStyle = "#1E3A8A";
+            ctx.fillRect(0, groundY, w, 35);
+            ctx.fillStyle = "#3B82F6";
+            ctx.fillRect(0, groundY, w, 4);
+
+            // Stick Figures
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = "#FFFFFF";
+            ctx.fillStyle = "#FFFFFF";
+
+            if (currentMotion === 'passing') {
+                const p1X = w * 0.25;
+                const p2X = w * 0.75;
+                const bodyY = groundY - 80;
+
+                // Player 1
+                ctx.beginPath(); ctx.arc(p1X, bodyY, 14, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.moveTo(p1X, bodyY + 14); ctx.lineTo(p1X, groundY - 40); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(p1X, groundY - 40); ctx.lineTo(p1X - 15, groundY); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(p1X, groundY - 40); ctx.lineTo(p1X + 15, groundY); ctx.stroke();
+
+                // Player 2
+                ctx.beginPath(); ctx.arc(p2X, bodyY, 14, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.moveTo(p2X, bodyY + 14); ctx.lineTo(p2X, groundY - 40); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(p2X, groundY - 40); ctx.lineTo(p2X - 15, groundY); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(p2X, groundY - 40); ctx.lineTo(p2X + 15, groundY); ctx.stroke();
+
+                // Ball Passing Arc
+                let progress = (Math.sin(time * 3) + 1) / 2;
+                let ballX = p1X + 25 + (progress * (p2X - p1X - 50));
+                let ballY = bodyY + 20;
+
+                drawBall(ballX, ballY);
+
+            } else if (currentMotion === 'catching') {
+                const p1X = w * 0.5;
+                const bodyY = groundY - 80;
+                let ballProgress = (time * 45) % (w * 0.4);
+                let ballX = (w * 0.2) + ballProgress;
+                if (ballX >= p1X - 25) ballX = p1X - 25;
+
+                // Player Catching stance
+                ctx.beginPath(); ctx.arc(p1X, bodyY, 14, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.moveTo(p1X, bodyY + 14); ctx.lineTo(p1X, groundY - 40); ctx.stroke();
+                // Arms forward forming bowl
+                ctx.beginPath(); ctx.moveTo(p1X, bodyY + 25); ctx.lineTo(p1X - 30, bodyY + 20); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(p1X, groundY - 40); ctx.lineTo(p1X - 15, groundY); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(p1X, groundY - 40); ctx.lineTo(p1X + 15, groundY); ctx.stroke();
+
+                drawBall(ballX, bodyY + 20);
+
+            } else if (currentMotion === 'dribble') {
+                let runCycle = Math.sin(time * 5);
+                let pX = (w * 0.2) + ((time * 35) % (w * 0.55));
+                let bodyY = groundY - 80;
+                let ballBounceY = groundY - 15 - Math.abs(Math.sin(time * 8)) * 40;
+
+                // Running Player
+                ctx.beginPath(); ctx.arc(pX, bodyY, 14, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.moveTo(pX, bodyY + 14); ctx.lineTo(pX, groundY - 40); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(pX, groundY - 40); ctx.lineTo(pX - 20 * runCycle, groundY); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(pX, groundY - 40); ctx.lineTo(pX + 20 * runCycle, groundY); ctx.stroke();
+
+                drawBall(pX + 25, ballBounceY);
+
+            } else if (currentMotion === 'shooting') {
+                let jumpY = Math.abs(Math.sin(time * 3)) * 50;
+                let pX = w * 0.35;
+                let bodyY = groundY - 80 - jumpY;
+
+                // Goal Frame Right
+                ctx.strokeStyle = "#EF4444";
+                ctx.lineWidth = 5;
+                ctx.strokeRect(w * 0.85, groundY - 110, 20, 110);
+
+                // Shooter Jumping
+                ctx.strokeStyle = "#FFFFFF";
+                ctx.lineWidth = 4;
+                ctx.beginPath(); ctx.arc(pX, bodyY, 14, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.moveTo(pX, bodyY + 14); ctx.lineTo(pX, bodyY + 50); ctx.stroke();
+                // Arm throwing
+                ctx.beginPath(); ctx.moveTo(pX, bodyY + 25); ctx.lineTo(pX + 30, bodyY + 10); ctx.stroke();
+
+                // Ball Shot trajectory
+                let shotProgress = (Math.sin(time * 3) + 1) / 2;
+                let ballX = pX + 30 + (shotProgress * (w * 0.5 - 30));
+                let ballY = bodyY + 10 + (shotProgress * 20);
+
+                drawBall(ballX, ballY);
+            }
+
+            requestAnimationFrame(renderSimulation);
+        }
+
+        renderSimulation();
+
+        // --- 6. Modal Steps ---
+        const modalData = {
+            catching: {
+                title: "Langkah-Langkah Menangkap Bola (Catching)",
+                icon: "fa-hands-holding",
+                steps: [
+                    "Berdiri seimbang, buka kaki selebar bahu dan lutut sedikit ditekuk.",
+                    "Arahkan pandangan mata tepat pada bola yang sedang melayang.",
+                    "Julurkan kedua tangan ke depan menyambut bola.",
+                    "Buka jari-jari tangan lebar-lebar membentuk Mangkuk / Corong.",
+                    "Tarik tangan ke belakang saat bola menyentuh telapak tangan untuk meredam benturan."
+                ]
+            },
+            passing: {
+                title: "Langkah-Langkah Melempar Bola (Passing)",
+                icon: "fa-person-running font-bold",
+                steps: [
+                    "Pegang bola dengan kedua tangan di depan dada (Chest Pass).",
+                    "Posisikan satu kaki di depan sebagai tumpuan lecutan.",
+                    "Dorong bola ke depan lurus diikuti lecutan pergelangan tangan.",
+                    "Untuk <strong>Overhead Pass</strong>: Pegang bola di atas kepala lalu ayunkan dari belakang ke depan.",
+                    "Untuk <strong>Bounce Pass</strong>: Pantulkan bola 2/3 jarak menuju teman."
+                ]
+            },
+            dribbling: {
+                title: "Langkah-Langkah Menggiring Bola (Dribbling)",
+                icon: "fa-basketball",
+                steps: [
+                    "Posisikan badan condong ke depan secara rileks.",
+                    "Dorong bola ke lantai menggunakan jari-jari tangan (bukan dipukul).",
+                    "Ketinggian pantulan bola setinggi pinggang.",
+                    "Lakukan gerakan berjalan atau berlari sambil terus memantulkan bola.",
+                    "Ingat aturan: Maksimal memegang bola 3 detik tanpa dipantulkan."
+                ]
+            },
+            shooting: {
+                title: "Langkah-Langkah Menembak Bola (Shooting)",
+                icon: "fa-crosshair",
+                steps: [
+                    "Fokuskan pandangan pada sudut gawang yang kosong.",
+                    "Lakukan 3 langkah awalan cepat mendekati area gawang lawan.",
+                    "Melompat tinggi ke depan dengan tumpuan satu kaki (Jump Shot).",
+                    "Tarik tangan yang memegang bola ke belakang kepala, lalu lemparkan sekuat tenaga.",
+                    "Mendarat dengan kedua kaki secara rileks dan seimbang."
+                ]
+            }
+        };
+
+        function openModal(key) {
+            const data = modalData[key];
+            if (!data) return;
+            const content = document.getElementById('modal-content');
+            content.innerHTML = `
+                <div class="flex items-center gap-3 border-b pb-3">
+                    <i class="fa-solid ${data.icon} text-3xl text-handball-600"></i>
+                    <h3 class="text-xl font-bold text-slate-800">${data.title}</h3>
+                </div>
+                <ul class="space-y-2 text-xs md:text-sm text-slate-700 pl-1">
+                    ${data.steps.map((step, i) => `
+                        <li class="flex items-start gap-2">
+                            <span class="bg-blue-100 text-handball-800 font-bold rounded-full w-5 h-5 flex items-center justify-center text-xs flex-shrink-0 mt-0.5">${i + 1}</span>
+                            <span>${step}</span>
+                        </li>
+                    `).join('')}
+                </ul>
+            `;
+            document.getElementById('detail-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('detail-modal').classList.add('hidden');
+        }
+
+        // --- 7. Quiz Logic ---
+        const questions = [
+            {
+                question: "Berapa jumlah pemain bola tangan dalam satu tim saat pertandingan di lapangan?",
+                options: ["5 Orang", "7 Orang", "11 Orang", "9 Orang"],
+                answer: 1,
+                explanation: "Setiap tim bola tangan terdiri dari 7 pemain (6 pemain lapangan + 1 penjaga gawang)."
+            },
+            {
+                question: "Berapa lama batas maksimal seorang pemain boleh memegang bola tanpa memantulkan atau melemparnya?",
+                options: ["3 Detik", "10 Detik", "5 Detik", "1 Menit"],
+                answer: 0,
+                explanation: "Dalam aturan bola tangan, pemain hanya boleh memegang bola maksimal selama 3 detik!"
+            },
+            {
+                question: "Teknik melempar bola lurus dari depan dada kepada rekan satu tim disebut...",
+                options: ["Overhead Pass", "Bounce Pass", "Chest Pass", "Jump Shot"],
+                answer: 2,
+                explanation: "Chest Pass adalah lemparan atau operan bola lurus setinggi dada."
+            },
+            {
+                question: "Saat menangkap bola (Catching), posisi kedua telapak tangan harus membentuk wujud...",
+                options: ["Kepalan tinju rapat", "Mangkuk / Corong terbuka", "Lurus kaku ke samping", "Silang di belakang"],
+                answer: 1,
+                explanation: "Telapak tangan dibentuk seperti mangkuk terbuka untuk menyambut dan meredam bola dengan aman."
+            },
+            {
+                question: "Teknik tembakan ke gawang yang dilakukan sambil melompat tinggi ke udara disebut...",
+                options: ["Jump Shot", "Standing Shot", "Side Pass", "Dribbling"],
+                answer: 0,
+                explanation: "Jump Shot adalah teknik menembak bola ke arah gawang sambil melompat ke udara."
+            }
+        ];
+
+        let currentQ = 0;
+        let score = 0;
+        let answered = false;
+
+        function loadQuestion() {
+            answered = false;
+            const q = questions[currentQ];
+            document.getElementById('question-number').textContent = `Pertanyaan ${currentQ + 1} dari ${questions.length}`;
+            document.getElementById('question-text').textContent = q.question;
+
+            const opts = document.getElementById('options-container');
+            opts.innerHTML = '';
+            document.getElementById('feedback-box').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-3.5 rounded-xl border-2 border-slate-200 hover:border-handball-500 hover:bg-blue-50 transition text-xs md:text-sm font-semibold text-slate-700 flex items-center justify-between group";
+                btn.innerHTML = `
+                    <span>${String.fromCharCode(65 + idx)}. ${opt}</span>
+                    <i class="fa-regular fa-circle text-slate-300 group-hover:text-handball-600"></i>
+                `;
+                btn.onclick = () => selectAnswer(idx, btn);
+                opts.appendChild(btn);
+            });
+        }
+
+        function readCurrentQuestion() {
+            const q = questions[currentQ];
+            speakText(`${q.question}. Jawaban A: ${q.options[0]}. B: ${q.options[1]}. C: ${q.options[2]}. D: ${q.options[3]}.`);
+        }
+
+        function selectAnswer(idx, btn) {
+            if (answered) return;
+            answered = true;
+
+            const q = questions[currentQ];
+            const feedback = document.getElementById('feedback-box');
+            const optionsBtns = document.getElementById('options-container').children;
+
+            if (idx === q.answer) {
+                score += 20;
+                playSoundEffect(true);
+                btn.className = "w-full text-left p-3.5 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-900 font-bold text-xs md:text-sm flex items-center justify-between";
+                btn.querySelector('i').className = "fa-solid fa-circle-check text-emerald-600 text-base";
+
+                feedback.className = "mt-4 p-4 rounded-xl text-center font-bold text-xs md:text-sm bg-emerald-100 text-emerald-900 border border-emerald-300";
+                feedback.innerHTML = `<i class="fa-solid fa-thumbs-up"></i> Jawaban Benar! ${q.explanation}`;
+            } else {
+                playSoundEffect(false);
+                btn.className = "w-full text-left p-3.5 rounded-xl border-2 border-rose-400 bg-rose-50 text-rose-900 font-bold text-xs md:text-sm flex items-center justify-between";
+                btn.querySelector('i').className = "fa-solid fa-circle-xmark text-rose-600 text-base";
+
+                optionsBtns[q.answer].className = "w-full text-left p-3.5 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-900 font-bold text-xs md:text-sm flex items-center justify-between";
+
+                feedback.className = "mt-4 p-4 rounded-xl text-center font-bold text-xs md:text-sm bg-rose-100 text-rose-900 border border-rose-300";
+                feedback.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> Kurang Tepat! Jawaban yang benar adalah ${q.options[q.answer]}. ${q.explanation}`;
+            }
+
+            feedback.classList.remove('hidden');
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.textContent = currentQ < questions.length - 1 ? "Pertanyaan Selanjutnya" : "Lihat Hasil Kuis";
+            nextBtn.classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            if (currentQ < questions.length - 1) {
+                currentQ++;
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('quiz-container').classList.add('hidden');
+            const res = document.getElementById('result-container');
+            res.classList.remove('hidden');
+
+            document.getElementById('final-score').textContent = score;
+
+            if (score >= 80) {
+                document.getElementById('result-message').textContent = "Sangat Luar Biasa! Kamu sangat menguasai teknik bola tangan! 🤾⭐";
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            } else if (score >= 60) {
+                document.getElementById('result-message').textContent = "Bagus sekali! Teruskan latihanmu agar makin mahir!";
+            } else {
+                document.getElementById('result-message').textContent = "Jangan menyerah! Pelajari kembali materinya dan coba kuis lagi ya!";
+            }
+        }
+
+        function resetQuiz() {
+            currentQ = 0;
+            score = 0;
+            document.getElementById('result-container').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            loadQuestion();
+        }
+
+        window.onload = function() {
+            loadQuestion();
+        };
+    </script>
+</body>
+</html>
